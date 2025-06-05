@@ -22,9 +22,7 @@ Warm regards,
 Nijah Richardson 
 Founder, Nijah's Boutique
       </p>
-        
     </div>
-  )
-}
-
+  );
+};
 export default Index;
