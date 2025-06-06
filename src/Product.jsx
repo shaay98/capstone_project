@@ -1,31 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { getProduct } from './productServices.jsx';
-
+import getProduct from "./ProductServices.jsx";
 
 const Product = ({ productId }) => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
+      if (!productId) return;
+  
       try {
         const fetchedProduct = await getProduct(productId);
         setProduct(fetchedProduct);
-      } catch (error) {
-        console.error("Error fetching product:", error);
+      } catch (err) {
+        console.error("Error:", err);
       }
     };
-
+  
     fetchProduct();
   }, [productId]);
+  
 
-  if (!product) return <p>Loading product...</p>;
-
+  if (!product) {
+    return <p>Loading product...</p>;
+  }
+  console.log('Rendering Product component with product:', product);
   return (
-    <div>
-      <h2>{product.name}</h2>
-      <p>{product.description}</p>
-      <img src='https://images.unsplash.com/photo-1747170934284-4d7487375f03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxhdGVzdCUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D' alt={product.name} width="200" />
-    </div>
-  );
+      <div>
+        <h2>{product["Name"]}</h2>
+        <p>{product["Description "]}</p>
+        <p><strong>Product ID:</strong> {product["Product-Id"]}</p>
+        <img
+        src="https://images.unsplash.com/photo-1600180758890-6f3b9ad1162f?w=500&auto=format&fit=crop&q=60"
+         alt={product["Name"]}
+        width="200"
+        />
+      </div>
+    );
 };
 export default Product;
